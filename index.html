@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعوة كتب كتاب أحمد ونورهان</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <title>دعوة زفاف أحمد & نورهان</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -13,8 +13,8 @@
         }
 
         body {
-            background-color: #121212;
-            color: #e0e0e0;
+            background-color: #f7f2ed; /* خلفية بيج هادئة وفخمة */
+            color: #4a3b32;
             font-family: 'Cairo', sans-serif;
             display: flex;
             justify-content: center;
@@ -23,14 +23,14 @@
             overflow-x: hidden;
         }
 
-        /* واجهة الظرف الواقعي */
+        /* واجهة الظرف وكارت البداية الكلاسيكي */
         #envelope-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #ffccd5; /* بينك فاتح */
+            background-color: #f7f2ed;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,79 +38,57 @@
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        .envelope-wrapper {
+        .invitation-card-front {
             position: relative;
-            width: 320px;
-            height: 220px;
-            cursor: pointer;
-        }
-
-        /* الورقة جوا الظرف وبتبدأ مختفية */
-        .letter {
-            position: absolute;
-            bottom: 10px;
-            left: 20px;
-            width: 280px;
-            height: 180px;
-            background-color: #fff0f3;
-            color: #333;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            width: 90%;
+            max-width: 420px;
+            background: #fffefb;
+            border: 2px solid #d4af37; /* إطار ذهبي راقي */
+            border-radius: 12px;
+            padding: 40px 20px;
             text-align: center;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            z-index: 1;
+            box-shadow: 0 10px 30px rgba(74, 59, 50, 0.1);
+        }
+
+        .invitation-card-front h2 {
             font-family: 'Amiri', serif;
-            transform: translateY(120px); /* مختبئة بالكامل جوه جيب الظرف */
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .letter h2 {
             font-size: 22px;
-            color: #b76e79;
-            margin-bottom: 10px;
+            color: #8c6d53;
+            margin-bottom: 20px;
         }
 
-        /* جيب الظرف الخلفي والجانبي */
-        .envelope-pocket {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 140px;
-            background-color: #d8a47f; /* لون الظرف الراقي */
-            border-radius: 0 0 12px 12px;
-            z-index: 3;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .names-front {
+            font-family: 'Amiri', serif;
+            font-size: 32px;
+            color: #4a3b32;
+            margin: 20px 0;
+            font-weight: bold;
         }
 
-        /* غطاء الظرف المتحرك (الفلاب) */
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-top: 110px solid #c58b62; /* لون الغطاء */
-            transform-origin: top;
-            transition: transform 0.8s ease;
-            z-index: 4;
+        .date-front {
+            font-size: 16px;
+            color: #776558;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
         }
 
-        /* تفاعل فتح الظرف تلقائياً */
-        .envelope-wrapper.open .envelope-flap {
-            transform: rotateX(180deg);
-            z-index: 0; /* الغطاء بيلف لوراء */
+        /* زر فتح الدعوة الفخم */
+        .open-btn {
+            background-color: #4a3b32;
+            color: #fffefb;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-family: 'Amiri', serif;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(74, 59, 50, 0.3);
+            transition: all 0.3s ease;
         }
 
-        .envelope-wrapper.open .letter {
-            transform: translateY(-45px); /* الورقة تطلع لفوق بشكل واقعي */
-            z-index: 5; /* الورقة بتطلع قدام الجيب */
+        .open-btn:hover {
+            background-color: #8c6d53;
+            transform: scale(1.05);
         }
 
         .hide-envelope {
@@ -122,60 +100,82 @@
         #main-content {
             display: none;
             width: 100%;
-            max-width: 500px;
-            padding: 20px;
+            max-width: 480px;
+            padding: 30px 20px;
             text-align: center;
-            animation: fadeIn 1.5s ease;
+            animation: fadeIn 1.2s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .header-section h1 {
+        .main-header {
             font-family: 'Amiri', serif;
-            color: #ffb3c6;
-            font-size: 26px;
-            margin-bottom: 15px;
-            line-height: 1.8;
+            font-size: 24px;
+            color: #8c6d53;
+            margin-bottom: 20px;
         }
 
         .quran-box {
-            background: #1e1e1e;
-            border: 1px solid #333;
+            background: #fffefb;
+            border: 1px solid #e3d5c6;
             border-radius: 12px;
             padding: 20px;
             margin: 20px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
 
         .quran-box p {
             font-family: 'Amiri', serif;
-            font-size: 18px;
-            color: #ffccd5;
+            font-size: 17px;
+            color: #5c473d;
             line-height: 2.2;
         }
 
-        .blessing-text {
-            font-size: 16px;
-            color: #ccc;
+        .welcome-text {
+            font-size: 15px;
+            color: #776558;
             margin: 20px 0;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
-        /* قسم العد التنازلي */
-        .countdown-container {
-            background: #1a1a1a;
-            border-radius: 15px;
+        .family-section {
+            background: #fffefb;
+            border: 1px solid #e3d5c6;
+            border-radius: 12px;
             padding: 20px;
-            margin: 30px 0;
-            border: 1px solid #b76e79;
+            margin: 20px 0;
+        }
+
+        .family-title {
+            font-size: 14px;
+            color: #8c6d53;
+            margin-bottom: 5px;
+        }
+
+        .family-name {
+            font-family: 'Amiri', serif;
+            font-size: 18px;
+            color: #4a3b32;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* العد التنازلي */
+        .countdown-container {
+            background: #fffefb;
+            border: 1px solid #d4af37;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
         }
 
         .countdown-title {
-            font-size: 22px;
-            color: #ffb3c6;
+            font-family: 'Amiri', serif;
+            font-size: 20px;
+            color: #8c6d53;
             margin-bottom: 15px;
             font-weight: bold;
         }
@@ -183,26 +183,33 @@
         .countdown-timers {
             display: flex;
             justify-content: space-around;
-            font-size: 18px;
-            color: #fff;
+            font-size: 16px;
+            color: #4a3b32;
             direction: ltr;
+        }
+
+        .time-box {
+            background: #f7f2ed;
+            padding: 10px;
+            border-radius: 8px;
+            min-width: 65px;
         }
 
         .time-box span {
             display: block;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
-            color: #ffccd5;
+            color: #8c6d53;
         }
 
         /* الفيديوهات */
         .video-card {
-            margin: 25px 0;
-            background: #181818;
+            margin: 20px 0;
+            background: #fffefb;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            border: 1px solid #2a2a2a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e3d5c6;
         }
 
         .video-card video {
@@ -213,83 +220,88 @@
 
         .video-date {
             padding: 12px;
-            font-size: 15px;
-            color: #ffb3c6;
-            background: #1f1f1f;
+            font-size: 14px;
+            color: #8c6d53;
+            background: #faf6f0;
+            font-family: 'Amiri', serif;
         }
 
-        /* زر الواتساب */
-        .whatsapp-btn {
-            display: inline-block;
+        /* زر الواتساب والموقع */
+        .action-btn {
+            display: block;
+            width: 100%;
             background-color: #25d366;
             color: white;
-            padding: 14px 30px;
-            border-radius: 30px;
+            padding: 12px;
+            border-radius: 8px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            margin: 30px 0;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            transition: transform 0.3s ease;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+            transition: transform 0.2s ease;
         }
 
-        .whatsapp-btn:hover {
-            transform: scale(1.05);
+        .action-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .map-btn {
+            background-color: #4a3b32;
+            box-shadow: 0 4px 10px rgba(74, 59, 50, 0.2);
         }
 
         /* التوقيع الأخير */
         .designer-sig {
             font-family: 'Amiri', serif;
-            font-size: 20px;
-            color: #b76e79;
-            margin-top: 20px;
-            margin-bottom: 40px;
+            font-size: 18px;
+            color: #8c6d53;
+            margin-top: 30px;
+            margin-bottom: 20px;
             letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <!-- واجهة الظرف الواقعي -->
+    <!-- واجهة البداية (الظرف أو الكارت المغلق) -->
     <div id="envelope-container">
-        <div class="envelope-wrapper" id="envelope">
-            <!-- الورقة جوه الظرف -->
-            <div class="letter">
-                <h2>💍 مبروك مقدماً 💍</h2>
-                <p style="font-size: 20px; font-weight: bold;">أحمد هيتجوز نورهان ❤️</p>
-            </div>
-            <!-- جيب الظرف -->
-            <div class="envelope-pocket"></div>
-            <!-- غطاء الظرف -->
-            <div class="envelope-flap"></div>
+        <div class="invitation-card-front">
+            <h2>دعوة زفاف</h2>
+            <div class="names-front">أحمد & نورهان</div>
+            <div style="font-size: 30px; margin: 15px 0; color: #d4af37;">🫀💍</div>
+            <div class="date-front">2026 • 09 • 13</div>
+            <button class="open-btn" onclick="openInvitation()">اضغط لفتح الدعوة 🔽</button>
         </div>
     </div>
 
     <!-- محتوى الدعوة الرئيسي -->
     <div id="main-content">
-        <div class="header-section">
-            <h1>❤️♥ دعوة كتب كتاب ♥️❤️</h1>
-            <h1 style="font-size: 22px;">🍂 ﷽ 🍂</h1>
+        <div class="main-header">
+            دعوة زفاف مباركة 🤍
         </div>
 
         <div class="quran-box">
-            <p>🌿 وَمِنْ آَيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُواإِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً إِنَّ فِي ذَلِك َلَآَيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ 🌿</p>
+            <p>🌿 وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكم مَّوَدَّةً وَرَحْمَةً 🌿</p>
         </div>
 
-        <div style="font-size: 24px; color: #b76e79; margin: 15px 0;">♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡</div>
+        <div class="welcome-text">
+            بكل الحب والسرور، يسرنا دعوتكم لمشاركتنا فرحتنا وضرورة حضوركم لتمام ليلتنا ❤️
+        </div>
 
-        <div class="blessing-text">
-            الحمدلله الذي تتم بنعمته الصالحات، الحمد لله الذي ألّف بين القلوب وجمع الأحباب ❤️🦅
+        <div class="family-section">
+            <div class="family-title">يعرض لكم بكل الحب</div>
+            <div class="family-name">عائلة أحمد وعائلة نورهان</div>
         </div>
 
         <!-- العد التنازلي -->
         <div class="countdown-container">
-            <div class="countdown-title">باقي علي فرحتنا ✨</div>
+            <div class="countdown-title">العد التنازلي لحفل الزفاف ✨</div>
             <div class="countdown-timers" id="countdown">
-                <div class="time-box"><span id="days">00</span>أيام</div>
-                <div class="time-box"><span id="hours">00</span>ساعات</div>
-                <div class="time-box"><span id="minutes">00</span>دقائق</div>
-                <div class="time-box"><span id="seconds">00</span>ثوانٍ</div>
+                <div class="time-box"><span id="days">00</span>يوم</div>
+                <div class="time-box"><span id="hours">00</span>ساعة</div>
+                <div class="time-box"><span id="minutes">00</span>دقيقة</div>
+                <div class="time-box"><span id="seconds">00</span>ثانية</div>
             </div>
         </div>
 
@@ -299,7 +311,7 @@
                 <source src="lv_0_20260830113215.mp4" type="video/mp4">
                 متصفحك لا يدعم عرض الفيديو
             </video>
-            <div class="video-date">📆 13/9/2026 الموعد المنتظر</div>
+            <div class="video-date">📆 13 سبتمبر 2026 - الموعد المنتظر</div>
         </div>
 
         <div class="video-card">
@@ -307,7 +319,7 @@
                 <source src="lv_0_20260830161049.mp4" type="video/mp4">
                 متصفحك لا يدعم عرض الفيديو
             </video>
-            <div class="video-date">📆 13/9/2026 الموعد المنتظر</div>
+            <div class="video-date">📆 13 سبتمبر 2026 - الموعد المنتظر</div>
         </div>
 
         <div class="video-card">
@@ -315,37 +327,31 @@
                 <source src="lv_0_20260909124339.mp4" type="video/mp4">
                 متصفحك لا يدعم عرض الفيديو
             </video>
-            <div class="video-date">📆 13/9/2026 الموعد المنتظر</div>
+            <div class="video-date">📆 13 سبتمبر 2026 - الموعد المنتظر</div>
         </div>
+
+        <!-- زر الخريطة -->
+        <a href="https://maps.google.com" class="action-btn map-btn" target="_blank">
+            📍 موقع قاعة الحفل على الخريطة
+        </a>
 
         <!-- زر الواتساب -->
-        <div>
-            <a href="https://wa.me/201155852870?text=%Dالسلام%20عليكم%2C%20مبروك%20كتب%20الكتاب%20يا%20أحمد%20ويا%20نورهان%2C%20سأكون%20من%20الحاضرين%20إن%20شاء%20الله!%20💍❤️" class="whatsapp-btn" target="_blank">
-                💬 تواصل عبر الواتساب
-            </a>
-        </div>
+        <a href="https://wa.me/201155852870?text=%Dالسلام%20عليكم%2C%20مبروك%20كتب%20الكتاب%20يا%20أحمد%20ويا%20نورهان%2C%20سأكون%20من%20الحاضرين%20إن%20شاء%20الله!%20💍❤️" class="action-btn" target="_blank">
+            💬 تأكيد الحضور عبر الواتساب
+        </a>
 
-        <!-- التوقيع المطلوب -->
+        <!-- التوقيع الأخير -->
         <div class="designer-sig">
             𝐾ℎ𝑜𝑑𝑎𝑟𝑦 𝐴𝑏𝑜 𝐺𝑒𝑏𝑎𝑙𝑖
         </div>
     </div>
 
     <script>
-        // فتح الظرف وخروج الورقة تلقائياً بشكل واقعي
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const envelope = document.getElementById('envelope');
-                envelope.classList.add('open');
-                
-                // الانتقال لعرض محتوى الدعوة بعد اكتمال خروج الورقة
-                setTimeout(() => {
-                    const envelopeContainer = document.getElementById('envelope-container');
-                    envelopeContainer.classList.add('hide-envelope');
-                    document.getElementById('main-content').style.display = 'block';
-                }, 1600);
-            }, 1000);
-        });
+        function openInvitation() {
+            const envelopeContainer = document.getElementById('envelope-container');
+            envelopeContainer.classList.add('hide-envelope');
+            document.getElementById('main-content').style.display = 'block';
+        }
 
         // عد تنازلي حتى تاريخ 13/9/2026
         const targetDate = new Date("September 13, 2026 00:00:00").getTime();
