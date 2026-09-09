@@ -23,18 +23,18 @@
             overflow-x: hidden;
         }
 
-        /* واجهة الظرف والورقة */
+        /* واجهة الظرف والورقة (بألوان واضحة ومضمونة) */
         #envelope-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #ffccd5;
+            background-color: #1a1a1a;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 9999;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
@@ -50,10 +50,10 @@
             left: 0;
             width: 100%;
             height: 140px;
-            background-color: #c68b59;
+            background-color: #b07d62;
             border-radius: 0 0 12px 12px;
             z-index: 3;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
         .letter {
@@ -71,7 +71,7 @@
             align-items: center;
             text-align: center;
             padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             z-index: 2;
             font-family: 'Amiri', serif;
             transform: translateY(90px);
@@ -92,7 +92,7 @@
             height: 0;
             border-left: 160px solid transparent;
             border-right: 160px solid transparent;
-            border-top: 110px solid #a66e38;
+            border-top: 110px solid #8c583f;
             transform-origin: top;
             transition: transform 0.6s ease;
             z-index: 4;
@@ -111,6 +111,7 @@
         .hide-envelope {
             opacity: 0;
             visibility: hidden;
+            pointer-events: none;
         }
 
         /* محتوى الدعوة الرئيسي (Dark Mode) */
@@ -257,6 +258,7 @@
 </head>
 <body>
 
+    <!-- واجهة الظرف والورقة التلقائية -->
     <div id="envelope-container">
         <div class="envelope-scene" id="envelopeScene">
             <div class="envelope-flap"></div>
@@ -268,6 +270,7 @@
         </div>
     </div>
 
+    <!-- محتوى الدعوة الرئيسي -->
     <div id="main-content">
         <div class="main-header">
             ❤️♥ دعوة كتب كتاب ♥️❤️<br>
@@ -284,6 +287,7 @@
             الحمدلله الذي تتم بنعمته الصالحات، الحمد لله الذي ألّف بين القلوب وجمع الأحباب ❤️🦅
         </div>
 
+        <!-- العد التنازلي -->
         <div class="countdown-container">
             <div class="countdown-title">باقي علي فرحتنا ✨</div>
             <div class="countdown-timers" id="countdown">
@@ -294,6 +298,7 @@
             </div>
         </div>
 
+        <!-- الفيديوهات -->
         <div class="video-card">
             <video controls playsinline>
                 <source src="lv_0_20260830113215.mp4" type="video/mp4">
@@ -318,30 +323,34 @@
             <div class="video-date">📆 13/9/2026 الموعد المنتظر</div>
         </div>
 
+        <!-- زر الواتساب -->
         <div>
             <a href="https://wa.me/201155852870?text=%Dالسلام%20عليكم%2C%20كنت%20أريد%20تصميم%20دعوة%20إلكترونية%20مثل%20هذه!" class="whatsapp-btn" target="_blank">
                 💬 اللي محتاج تصميم يكلمني
             </a>
         </div>
 
+        <!-- التوقيع الأخير -->
         <div class="designer-sig">
             𝐾ℎ𝑜𝑑𝑎𝑟𝑦 𝐴𝑏𝑜 𝐺𝑒𝑏𝑎𝑙𝑖
         </div>
     </div>
 
     <script>
-        // فتح الظرف وخروج الورقة تلقائياً
+        // فتح الظرف وخروج الورقة تلقائياً بمجرد تحميل الصفحة
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const envelopeScene = document.getElementById('envelopeScene');
-                envelopeScene.classList.add('open');
+                if(envelopeScene) envelopeScene.classList.add('open');
                 
                 setTimeout(() => {
                     const envelopeContainer = document.getElementById('envelope-container');
-                    envelopeContainer.classList.add('hide-envelope');
-                    document.getElementById('main-content').style.display = 'block';
-                }, 1600);
-            }, 1000);
+                    if(envelopeContainer) envelopeContainer.classList.add('hide-envelope');
+                    
+                    const mainContent = document.getElementById('main-content');
+                    if(mainContent) mainContent.style.display = 'block';
+                }, 1500);
+            }, 800);
         });
 
         // عد تنازلي حتى تاريخ 13/9/2026
@@ -361,10 +370,15 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+            const daysEl = document.getElementById("days");
+            const hoursEl = document.getElementById("hours");
+            const minutesEl = document.getElementById("minutes");
+            const secondsEl = document.getElementById("seconds");
+
+            if(daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
+            if(hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
+            if(minutesEl) minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+            if(secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
         }
 
         setInterval(updateCountdown, 1000);
