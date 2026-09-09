@@ -23,14 +23,14 @@
             overflow-x: hidden;
         }
 
-        /* واجهة الظرف والورقة (بألوان واضحة ومضمونة) */
+        /* واجهة الظرف والورقة الاحترافية */
         #envelope-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #1a1a1a;
+            background-color: #121212;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -42,6 +42,7 @@
             position: relative;
             width: 320px;
             height: 220px;
+            cursor: pointer;
         }
 
         .envelope-pocket {
@@ -50,7 +51,7 @@
             left: 0;
             width: 100%;
             height: 140px;
-            background-color: #b07d62;
+            background-color: #c68b59;
             border-radius: 0 0 12px 12px;
             z-index: 3;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
@@ -61,7 +62,7 @@
             bottom: 10px;
             left: 20px;
             width: 280px;
-            height: 180px;
+            height: 170px;
             background-color: #fff0f3;
             color: #333;
             border-radius: 8px;
@@ -74,8 +75,8 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             z-index: 2;
             font-family: 'Amiri', serif;
-            transform: translateY(90px);
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .letter h2 {
@@ -92,19 +93,20 @@
             height: 0;
             border-left: 160px solid transparent;
             border-right: 160px solid transparent;
-            border-top: 110px solid #8c583f;
+            border-top: 110px solid #a66e38;
             transform-origin: top;
             transition: transform 0.6s ease;
             z-index: 4;
         }
 
+        /* أنيميشن فتح الظرف وخروج الورقة بسلاسة */
         .envelope-scene.open .envelope-flap {
             transform: rotateX(180deg);
             z-index: 1;
         }
 
         .envelope-scene.open .letter {
-            transform: translateY(-50px);
+            transform: translateY(-75px);
             z-index: 5;
         }
 
@@ -225,7 +227,7 @@
             font-family: 'Amiri', serif;
         }
 
-        /* زر الواتساب */
+        /* زر الواتساب بالتعديل الجديد */
         .whatsapp-btn {
             display: block;
             width: 100%;
@@ -258,19 +260,17 @@
 </head>
 <body>
 
-    <!-- واجهة الظرف والورقة التلقائية -->
     <div id="envelope-container">
         <div class="envelope-scene" id="envelopeScene">
             <div class="envelope-flap"></div>
             <div class="letter">
                 <h2>💍 مبروك مقدماً 💍</h2>
-                <p style="font-size: 20px; font-weight: bold;">أحمد هيتجوز نورهان ❤️</p>
+                <p style="font-size: 18px; font-weight: bold;">أحمد هيتجوز نورهان ❤️</p>
             </div>
             <div class="envelope-pocket"></div>
         </div>
     </div>
 
-    <!-- محتوى الدعوة الرئيسي -->
     <div id="main-content">
         <div class="main-header">
             ❤️♥ دعوة كتب كتاب ♥️❤️<br>
@@ -287,7 +287,6 @@
             الحمدلله الذي تتم بنعمته الصالحات، الحمد لله الذي ألّف بين القلوب وجمع الأحباب ❤️🦅
         </div>
 
-        <!-- العد التنازلي -->
         <div class="countdown-container">
             <div class="countdown-title">باقي علي فرحتنا ✨</div>
             <div class="countdown-timers" id="countdown">
@@ -298,7 +297,6 @@
             </div>
         </div>
 
-        <!-- الفيديوهات -->
         <div class="video-card">
             <video controls playsinline>
                 <source src="lv_0_20260830113215.mp4" type="video/mp4">
@@ -323,21 +321,19 @@
             <div class="video-date">📆 13/9/2026 الموعد المنتظر</div>
         </div>
 
-        <!-- زر الواتساب -->
         <div>
             <a href="https://wa.me/201155852870?text=%Dالسلام%20عليكم%2C%20كنت%20أريد%20تصميم%20دعوة%20إلكترونية%20مثل%20هذه!" class="whatsapp-btn" target="_blank">
-                💬 اللي محتاج تصميم يكلمني
+                💬 دوس هنا لو عاوز تصميم
             </a>
         </div>
 
-        <!-- التوقيع الأخير -->
         <div class="designer-sig">
             𝐾ℎ𝑜𝑑𝑎𝑟𝑦 𝐴𝑏𝑜 𝐺𝑒𝑏𝑎𝑙𝑖
         </div>
     </div>
 
     <script>
-        // فتح الظرف وخروج الورقة تلقائياً بمجرد تحميل الصفحة
+        // فتح الظرف وخروج الورقة تلقائياً وبسلاسة
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const envelopeScene = document.getElementById('envelopeScene');
@@ -349,7 +345,7 @@
                     
                     const mainContent = document.getElementById('main-content');
                     if(mainContent) mainContent.style.display = 'block';
-                }, 1500);
+                }, 1200);
             }, 800);
         });
 
