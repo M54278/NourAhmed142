@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #121212; /* Dark Mode */
+            background-color: #121212;
             color: #e0e0e0;
             font-family: 'Cairo', sans-serif;
             display: flex;
@@ -30,7 +30,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #ffccd5; /* بينك فاتح للواجهة */
+            background-color: #ffccd5;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -138,3 +138,237 @@
 
         .quran-box {
             background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .quran-box p {
+            font-family: 'Amiri', serif;
+            font-size: 18px;
+            color: #ffccd5;
+            line-height: 2.2;
+        }
+
+        .blessing-text {
+            font-size: 17px;
+            color: #e0e0e0;
+            margin: 20px 0;
+            line-height: 2;
+            padding: 0 10px;
+            font-family: 'Amiri', serif;
+        }
+
+        /* العد التنازلي */
+        .countdown-container {
+            background: #1a1a1a;
+            border: 1px solid #b76e79;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .countdown-title {
+            font-family: 'Amiri', serif;
+            font-size: 22px;
+            color: #ffb3c6;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .countdown-timers {
+            display: flex;
+            justify-content: space-around;
+            font-size: 16px;
+            color: #fff;
+            direction: ltr;
+        }
+
+        .time-box {
+            background: #242424;
+            padding: 10px;
+            border-radius: 8px;
+            min-width: 65px;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffccd5;
+        }
+
+        /* الفيديوهات */
+        .video-card {
+            margin: 25px 0;
+            background: #181818;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            border: 1px solid #2a2a2a;
+        }
+
+        .video-card video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-date {
+            padding: 12px;
+            font-size: 15px;
+            color: #ffb3c6;
+            background: #1f1f1f;
+            font-family: 'Amiri', serif;
+        }
+
+        /* زر الواتساب */
+        .whatsapp-btn {
+            display: block;
+            width: 100%;
+            background-color: #25d366;
+            color: white;
+            padding: 14px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.02);
+        }
+
+        /* التوقيع الأخير */
+        .designer-sig {
+            font-family: 'Amiri', serif;
+            font-size: 20px;
+            color: #b76e79;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="envelope-container">
+        <div class="envelope-scene" id="envelopeScene">
+            <div class="envelope-flap"></div>
+            <div class="letter">
+                <h2>💍 مبروك مقدماً 💍</h2>
+                <p style="font-size: 20px; font-weight: bold;">أحمد هيتجوز نورهان ❤️</p>
+            </div>
+            <div class="envelope-pocket"></div>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div class="main-header">
+            ❤️♥ دعوة كتب كتاب ♥️❤️<br>
+            <span style="font-size: 20px;">🍂 ﷽ 🍂</span>
+        </div>
+
+        <div class="quran-box">
+            <p>🌿 وَمِنْ آَيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُواإِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً إِنَّ فِي ذَلِك َلَآَيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ 🌿</p>
+        </div>
+
+        <div style="font-size: 22px; color: #b76e79; margin: 15px 0;">♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡♡</div>
+
+        <div class="blessing-text">
+            الحمدلله الذي تتم بنعمته الصالحات، الحمد لله الذي ألّف بين القلوب وجمع الأحباب ❤️🦅
+        </div>
+
+        <div class="countdown-container">
+            <div class="countdown-title">باقي علي فرحتنا ✨</div>
+            <div class="countdown-timers" id="countdown">
+                <div class="time-box"><span id="days">00</span>أيام</div>
+                <div class="time-box"><span id="hours">00</span>ساعات</div>
+                <div class="time-box"><span id="minutes">00</span>دقائق</div>
+                <div class="time-box"><span id="seconds">00</span>ثوانٍ</div>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <video controls playsinline>
+                <source src="lv_0_20260830113215.mp4" type="video/mp4">
+                متصفحك لا يدعم عرض الفيديو
+            </video>
+            <div class="video-date">📆 13/9/2026 الموعد المنتظر</div>
+        </div>
+
+        <div class="video-card">
+            <video controls playsinline>
+                <source src="lv_0_20260830161049.mp4" type="video/mp4">
+                متصفحك لا يدعم عرض الفيديو
+            </video>
+            <div class="video-date">📆 13/9/2026 الموعد المنتظر</div>
+        </div>
+
+        <div class="video-card">
+            <video controls playsinline>
+                <source src="lv_0_20260909124339.mp4" type="video/mp4">
+                متصفحك لا يدعم عرض الفيديو
+            </video>
+            <div class="video-date">📆 13/9/2026 الموعد المنتظر</div>
+        </div>
+
+        <div>
+            <a href="https://wa.me/201155852870?text=%Dالسلام%20عليكم%2C%20كنت%20أريد%20تصميم%20دعوة%20إلكترونية%20مثل%20هذه!" class="whatsapp-btn" target="_blank">
+                💬 اللي محتاج تصميم يكلمني
+            </a>
+        </div>
+
+        <div class="designer-sig">
+            𝐾ℎ𝑜𝑑𝑎𝑟𝑦 𝐴𝑏𝑜 𝐺𝑒𝑏𝑎𝑙𝑖
+        </div>
+    </div>
+
+    <script>
+        // فتح الظرف وخروج الورقة تلقائياً
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const envelopeScene = document.getElementById('envelopeScene');
+                envelopeScene.classList.add('open');
+                
+                setTimeout(() => {
+                    const envelopeContainer = document.getElementById('envelope-container');
+                    envelopeContainer.classList.add('hide-envelope');
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1600);
+            }, 1000);
+        });
+
+        // عد تنازلي حتى تاريخ 13/9/2026
+        const targetDate = new Date("September 13, 2026 00:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "لقد حان موعد الفرح المنتظر! 🎉";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
