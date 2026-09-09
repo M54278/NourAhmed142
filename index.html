@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* واجهة الظرف والورقة */
+        /* واجهة الظرف الواقعي */
         #envelope-container {
             position: fixed;
             top: 0;
@@ -38,36 +38,19 @@
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        .envelope {
+        .envelope-wrapper {
             position: relative;
             width: 320px;
             height: 220px;
-            background-color: #c68b59; /* لون ظرف راقي */
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             cursor: pointer;
-            overflow: hidden; /* لمنع ظهور الورقة خارج الظرف قبل فتحه */
         }
 
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-top: 120px solid #a66e38;
-            transform-origin: top;
-            transition: transform 0.8s ease;
-            z-index: 3;
-        }
-
+        /* الورقة جوا الظرف وبتبدأ مختفية */
         .letter {
             position: absolute;
-            bottom: 5px;
-            left: 15px;
-            width: 290px;
+            bottom: 10px;
+            left: 20px;
+            width: 280px;
             height: 180px;
             background-color: #fff0f3;
             color: #333;
@@ -78,26 +61,56 @@
             align-items: center;
             text-align: center;
             padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: transform 1s ease 0.3s;
-            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 1;
             font-family: 'Amiri', serif;
-            transform: translateY(20px); /* مختبئة بالكامل داخل الظرف */
+            transform: translateY(120px); /* مختبئة بالكامل جوه جيب الظرف */
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .letter h2 {
-            font-size: 24px;
+            font-size: 22px;
             color: #b76e79;
             margin-bottom: 10px;
         }
 
-        /* حركات فتح الظرف وخروج الورقة تلقائياً */
-        .envelope.open .envelope-flap {
-            transform: rotateX(180deg);
+        /* جيب الظرف الخلفي والجانبي */
+        .envelope-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 140px;
+            background-color: #d8a47f; /* لون الظرف الراقي */
+            border-radius: 0 0 12px 12px;
+            z-index: 3;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .envelope.open .letter {
-            transform: translateY(-135px); /* خروج الورقة للأعلى تلقائياً */
+        /* غطاء الظرف المتحرك (الفلاب) */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 110px solid #c58b62; /* لون الغطاء */
+            transform-origin: top;
+            transition: transform 0.8s ease;
+            z-index: 4;
+        }
+
+        /* تفاعل فتح الظرف تلقائياً */
+        .envelope-wrapper.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 0; /* الغطاء بيلف لوراء */
+        }
+
+        .envelope-wrapper.open .letter {
+            transform: translateY(-45px); /* الورقة تطلع لفوق بشكل واقعي */
+            z-index: 5; /* الورقة بتطلع قدام الجيب */
         }
 
         .hide-envelope {
@@ -237,14 +250,18 @@
 </head>
 <body>
 
-    <!-- واجهة الظرف والورقة (تفتح وتخرج تلقائياً) -->
+    <!-- واجهة الظرف الواقعي -->
     <div id="envelope-container">
-        <div class="envelope" id="envelope">
-            <div class="envelope-flap"></div>
+        <div class="envelope-wrapper" id="envelope">
+            <!-- الورقة جوه الظرف -->
             <div class="letter">
                 <h2>💍 مبروك مقدماً 💍</h2>
                 <p style="font-size: 20px; font-weight: bold;">أحمد هيتجوز نورهان ❤️</p>
             </div>
+            <!-- جيب الظرف -->
+            <div class="envelope-pocket"></div>
+            <!-- غطاء الظرف -->
+            <div class="envelope-flap"></div>
         </div>
     </div>
 
@@ -276,7 +293,7 @@
             </div>
         </div>
 
-        <!-- الفيديوهات (بدون تشغيل تلقائي، مع تفعيل الأصوات والتحكم الكامل) -->
+        <!-- الفيديوهات -->
         <div class="video-card">
             <video controls playsinline>
                 <source src="lv_0_20260830113215.mp4" type="video/mp4">
@@ -301,9 +318,9 @@
             <div class="video-date">📆 13/9/2026 الموعد المنتظر</div>
         </div>
 
-        <!-- زر الواتساب برقم الهاتف والرسالة التلقائية -->
+        <!-- زر الواتساب -->
         <div>
-            <a href="https://wa.me/201155852870?text=%Dالسلام%20عليكم%2C%20مبروك%20كتب%20الكتاب%20يا%20أحمد%20ويا%20نورهان%2C%20سأكون%20من الحاضرين%20إن%20شاء%20الله!%20💍❤️" class="whatsapp-btn" target="_blank">
+            <a href="https://wa.me/201155852870?text=%Dالسلام%20عليكم%2C%20مبروك%20كتب%20الكتاب%20يا%20أحمد%20ويا%20نورهان%2C%20سأكون%20من%20الحاضرين%20إن%20شاء%20الله!%20💍❤️" class="whatsapp-btn" target="_blank">
                 💬 تواصل عبر الواتساب
             </a>
         </div>
@@ -315,18 +332,18 @@
     </div>
 
     <script>
-        // فتح الظرف وخروج الورقة تلقائياً بعد ثانية من فتح الصفحة
+        // فتح الظرف وخروج الورقة تلقائياً بشكل واقعي
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const envelope = document.getElementById('envelope');
                 envelope.classList.add('open');
                 
-                // الانتقال لعرض محتوى الدعوة الأساسي بعد انتهاء حركة الظرف
+                // الانتقال لعرض محتوى الدعوة بعد اكتمال خروج الورقة
                 setTimeout(() => {
                     const envelopeContainer = document.getElementById('envelope-container');
                     envelopeContainer.classList.add('hide-envelope');
                     document.getElementById('main-content').style.display = 'block';
-                }, 1200);
+                }, 1600);
             }, 1000);
         });
 
