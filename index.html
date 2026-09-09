@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعوة زفاف أحمد & نورهان</title>
+    <title>دعوة كتب كتاب أحمد ونورهان</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -13,8 +13,8 @@
         }
 
         body {
-            background-color: #f7f2ed; /* خلفية بيج هادئة وفخمة */
-            color: #4a3b32;
+            background-color: #121212; /* Dark Mode */
+            color: #e0e0e0;
             font-family: 'Cairo', sans-serif;
             display: flex;
             justify-content: center;
@@ -23,14 +23,14 @@
             overflow-x: hidden;
         }
 
-        /* واجهة الظرف وكارت البداية الكلاسيكي */
+        /* واجهة الظرف والورقة */
         #envelope-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #f7f2ed;
+            background-color: #ffccd5; /* بينك فاتح للواجهة */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,57 +38,74 @@
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        .invitation-card-front {
+        .envelope-scene {
             position: relative;
-            width: 90%;
-            max-width: 420px;
-            background: #fffefb;
-            border: 2px solid #d4af37; /* إطار ذهبي راقي */
-            border-radius: 12px;
-            padding: 40px 20px;
+            width: 320px;
+            height: 220px;
+        }
+
+        .envelope-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 140px;
+            background-color: #c68b59;
+            border-radius: 0 0 12px 12px;
+            z-index: 3;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            width: 280px;
+            height: 180px;
+            background-color: #fff0f3;
+            color: #333;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(74, 59, 50, 0.1);
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2;
+            font-family: 'Amiri', serif;
+            transform: translateY(90px);
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .invitation-card-front h2 {
-            font-family: 'Amiri', serif;
+        .letter h2 {
             font-size: 22px;
-            color: #8c6d53;
-            margin-bottom: 20px;
+            color: #b76e79;
+            margin-bottom: 10px;
         }
 
-        .names-front {
-            font-family: 'Amiri', serif;
-            font-size: 32px;
-            color: #4a3b32;
-            margin: 20px 0;
-            font-weight: bold;
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 110px solid #a66e38;
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 4;
         }
 
-        .date-front {
-            font-size: 16px;
-            color: #776558;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
+        .envelope-scene.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
         }
 
-        /* زر فتح الدعوة الفخم */
-        .open-btn {
-            background-color: #4a3b32;
-            color: #fffefb;
-            border: none;
-            padding: 12px 35px;
-            border-radius: 30px;
-            font-size: 18px;
-            font-family: 'Amiri', serif;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(74, 59, 50, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .open-btn:hover {
-            background-color: #8c6d53;
-            transform: scale(1.05);
+        .envelope-scene.open .letter {
+            transform: translateY(-50px);
+            z-index: 5;
         }
 
         .hide-envelope {
@@ -96,7 +113,7 @@
             visibility: hidden;
         }
 
-        /* محتوى الدعوة الرئيسي */
+        /* محتوى الدعوة الرئيسي (Dark Mode) */
         #main-content {
             display: none;
             width: 100%;
@@ -113,69 +130,49 @@
 
         .main-header {
             font-family: 'Amiri', serif;
-            font-size: 24px;
-            color: #8c6d53;
-            margin-bottom: 20px;
+            font-size: 26px;
+            color: #ffb3c6;
+            margin-bottom: 15px;
+            line-height: 1.8;
         }
 
         .quran-box {
-            background: #fffefb;
-            border: 1px solid #e3d5c6;
+            background: #1e1e1e;
+            border: 1px solid #333;
             border-radius: 12px;
             padding: 20px;
             margin: 20px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         .quran-box p {
             font-family: 'Amiri', serif;
-            font-size: 17px;
-            color: #5c473d;
+            font-size: 18px;
+            color: #ffccd5;
             line-height: 2.2;
         }
 
-        .welcome-text {
-            font-size: 15px;
-            color: #776558;
+        .blessing-text {
+            font-size: 16px;
+            color: #ccc;
             margin: 20px 0;
             line-height: 1.8;
-        }
-
-        .family-section {
-            background: #fffefb;
-            border: 1px solid #e3d5c6;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .family-title {
-            font-size: 14px;
-            color: #8c6d53;
-            margin-bottom: 5px;
-        }
-
-        .family-name {
-            font-family: 'Amiri', serif;
-            font-size: 18px;
-            color: #4a3b32;
-            font-weight: bold;
-            margin-bottom: 15px;
+            padding: 0 10px;
         }
 
         /* العد التنازلي */
         .countdown-container {
-            background: #fffefb;
-            border: 1px solid #d4af37;
-            border-radius: 12px;
+            background: #1a1a1a;
+            border: 1px solid #b76e79;
+            border-radius: 15px;
             padding: 20px;
             margin: 25px 0;
         }
 
         .countdown-title {
             font-family: 'Amiri', serif;
-            font-size: 20px;
-            color: #8c6d53;
+            font-size: 22px;
+            color: #ffb3c6;
             margin-bottom: 15px;
             font-weight: bold;
         }
@@ -184,200 +181,12 @@
             display: flex;
             justify-content: space-around;
             font-size: 16px;
-            color: #4a3b32;
+            color: #fff;
             direction: ltr;
         }
 
         .time-box {
-            background: #f7f2ed;
+            background: #242424;
             padding: 10px;
             border-radius: 8px;
             min-width: 65px;
-        }
-
-        .time-box span {
-            display: block;
-            font-size: 20px;
-            font-weight: bold;
-            color: #8c6d53;
-        }
-
-        /* الفيديوهات */
-        .video-card {
-            margin: 20px 0;
-            background: #fffefb;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #e3d5c6;
-        }
-
-        .video-card video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .video-date {
-            padding: 12px;
-            font-size: 14px;
-            color: #8c6d53;
-            background: #faf6f0;
-            font-family: 'Amiri', serif;
-        }
-
-        /* زر الواتساب والموقع */
-        .action-btn {
-            display: block;
-            width: 100%;
-            background-color: #25d366;
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 15px 0;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
-            transition: transform 0.2s ease;
-        }
-
-        .action-btn:hover {
-            transform: scale(1.02);
-        }
-
-        .map-btn {
-            background-color: #4a3b32;
-            box-shadow: 0 4px 10px rgba(74, 59, 50, 0.2);
-        }
-
-        /* التوقيع الأخير */
-        .designer-sig {
-            font-family: 'Amiri', serif;
-            font-size: 18px;
-            color: #8c6d53;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- واجهة البداية (الظرف أو الكارت المغلق) -->
-    <div id="envelope-container">
-        <div class="invitation-card-front">
-            <h2>دعوة زفاف</h2>
-            <div class="names-front">أحمد & نورهان</div>
-            <div style="font-size: 30px; margin: 15px 0; color: #d4af37;">🫀💍</div>
-            <div class="date-front">2026 • 09 • 13</div>
-            <button class="open-btn" onclick="openInvitation()">اضغط لفتح الدعوة 🔽</button>
-        </div>
-    </div>
-
-    <!-- محتوى الدعوة الرئيسي -->
-    <div id="main-content">
-        <div class="main-header">
-            دعوة زفاف مباركة 🤍
-        </div>
-
-        <div class="quran-box">
-            <p>🌿 وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكم مَّوَدَّةً وَرَحْمَةً 🌿</p>
-        </div>
-
-        <div class="welcome-text">
-            بكل الحب والسرور، يسرنا دعوتكم لمشاركتنا فرحتنا وضرورة حضوركم لتمام ليلتنا ❤️
-        </div>
-
-        <div class="family-section">
-            <div class="family-title">يعرض لكم بكل الحب</div>
-            <div class="family-name">عائلة أحمد وعائلة نورهان</div>
-        </div>
-
-        <!-- العد التنازلي -->
-        <div class="countdown-container">
-            <div class="countdown-title">العد التنازلي لحفل الزفاف ✨</div>
-            <div class="countdown-timers" id="countdown">
-                <div class="time-box"><span id="days">00</span>يوم</div>
-                <div class="time-box"><span id="hours">00</span>ساعة</div>
-                <div class="time-box"><span id="minutes">00</span>دقيقة</div>
-                <div class="time-box"><span id="seconds">00</span>ثانية</div>
-            </div>
-        </div>
-
-        <!-- الفيديوهات -->
-        <div class="video-card">
-            <video controls playsinline>
-                <source src="lv_0_20260830113215.mp4" type="video/mp4">
-                متصفحك لا يدعم عرض الفيديو
-            </video>
-            <div class="video-date">📆 13 سبتمبر 2026 - الموعد المنتظر</div>
-        </div>
-
-        <div class="video-card">
-            <video controls playsinline>
-                <source src="lv_0_20260830161049.mp4" type="video/mp4">
-                متصفحك لا يدعم عرض الفيديو
-            </video>
-            <div class="video-date">📆 13 سبتمبر 2026 - الموعد المنتظر</div>
-        </div>
-
-        <div class="video-card">
-            <video controls playsinline>
-                <source src="lv_0_20260909124339.mp4" type="video/mp4">
-                متصفحك لا يدعم عرض الفيديو
-            </video>
-            <div class="video-date">📆 13 سبتمبر 2026 - الموعد المنتظر</div>
-        </div>
-
-        <!-- زر الخريطة -->
-        <a href="https://maps.google.com" class="action-btn map-btn" target="_blank">
-            📍 موقع قاعة الحفل على الخريطة
-        </a>
-
-        <!-- زر الواتساب -->
-        <a href="https://wa.me/201155852870?text=%Dالسلام%20عليكم%2C%20مبروك%20كتب%20الكتاب%20يا%20أحمد%20ويا%20نورهان%2C%20سأكون%20من%20الحاضرين%20إن%20شاء%20الله!%20💍❤️" class="action-btn" target="_blank">
-            💬 تأكيد الحضور عبر الواتساب
-        </a>
-
-        <!-- التوقيع الأخير -->
-        <div class="designer-sig">
-            𝐾ℎ𝑜𝑑𝑎𝑟𝑦 𝐴𝑏𝑜 𝐺𝑒𝑏𝑎𝑙𝑖
-        </div>
-    </div>
-
-    <script>
-        function openInvitation() {
-            const envelopeContainer = document.getElementById('envelope-container');
-            envelopeContainer.classList.add('hide-envelope');
-            document.getElementById('main-content').style.display = 'block';
-        }
-
-        // عد تنازلي حتى تاريخ 13/9/2026
-        const targetDate = new Date("September 13, 2026 00:00:00").getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance < 0) {
-                document.getElementById("countdown").innerHTML = "لقد حان موعد الفرح المنتظر! 🎉";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-    </script>
-</body>
-</html>
