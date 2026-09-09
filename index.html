@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* واجهة الظرف والورقة الاحترافية */
+        /* واجهة الظرف الجديد الفخم */
         #envelope-container {
             position: fixed;
             top: 0;
@@ -32,38 +32,51 @@
             height: 100%;
             background-color: #121212;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        .envelope-scene {
+        .envelope-box {
             position: relative;
-            width: 320px;
-            height: 220px;
-            cursor: pointer;
+            width: 300px;
+            height: 200px;
+            background: #d4a373;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .envelope-pocket {
+        /* غطاء الظرف من فوق */
+        .envelope-flap-top {
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
-            width: 100%;
-            height: 140px;
-            background-color: #c68b59;
-            border-radius: 0 0 12px 12px;
-            z-index: 3;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 110px solid #bc6c25;
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 4;
         }
 
-        .letter {
+        .envelope-box.open .envelope-flap-top {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* الكارت جوه الظرف */
+        .envelope-card {
             position: absolute;
-            bottom: 10px;
-            left: 20px;
-            width: 280px;
-            height: 170px;
-            background-color: #fff0f3;
+            width: 260px;
+            height: 150px;
+            background: #fff0f3;
             color: #333;
             border-radius: 8px;
             display: flex;
@@ -71,43 +84,37 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             z-index: 2;
             font-family: 'Amiri', serif;
-            transform: translateY(20px);
-            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .letter h2 {
-            font-size: 22px;
-            color: #b76e79;
-            margin-bottom: 10px;
-        }
-
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-top: 110px solid #a66e38;
-            transform-origin: top;
-            transition: transform 0.6s ease;
-            z-index: 4;
-        }
-
-        /* أنيميشن فتح الظرف وخروج الورقة بسلاسة */
-        .envelope-scene.open .envelope-flap {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-
-        .envelope-scene.open .letter {
-            transform: translateY(-75px);
+        .envelope-box.open .envelope-card {
+            transform: translateY(-90px);
             z-index: 5;
+        }
+
+        /* زر فتح الدعوة */
+        .open-btn {
+            margin-top: 30px;
+            background-color: #b76e79;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(183, 110, 121, 0.4);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .open-btn:hover {
+            background-color: #d4838f;
+            transform: scale(1.05);
         }
 
         .hide-envelope {
@@ -227,7 +234,7 @@
             font-family: 'Amiri', serif;
         }
 
-        /* زر الواتساب بالتعديل الجديد */
+        /* زر الواتساب */
         .whatsapp-btn {
             display: block;
             width: 100%;
@@ -261,14 +268,14 @@
 <body>
 
     <div id="envelope-container">
-        <div class="envelope-scene" id="envelopeScene">
-            <div class="envelope-flap"></div>
-            <div class="letter">
-                <h2>💍 مبروك مقدماً 💍</h2>
-                <p style="font-size: 18px; font-weight: bold;">أحمد هيتجوز نورهان ❤️</p>
+        <div class="envelope-box" id="envelopeBox">
+            <div class="envelope-flap-top"></div>
+            <div class="envelope-card">
+                <h2 style="color: #b76e79; font-size: 20px; margin-bottom: 5px;">💍 مبروك مقدماً 💍</h2>
+                <p style="font-weight: bold; font-size: 17px;">أحمد هيتجوز نورهان ❤️</p>
             </div>
-            <div class="envelope-pocket"></div>
         </div>
+        <button class="open-btn" onclick="openInvitation()">اضغط هنا لفتح الدعوة</button>
     </div>
 
     <div id="main-content">
@@ -333,21 +340,19 @@
     </div>
 
     <script>
-        // فتح الظرف وخروج الورقة تلقائياً وبسلاسة
-        window.addEventListener('load', () => {
+        // دالة فتح الدعوة عند الضغط على الزر
+        function openInvitation() {
+            const envelopeBox = document.getElementById('envelopeBox');
+            if(envelopeBox) envelopeBox.classList.add('open');
+
             setTimeout(() => {
-                const envelopeScene = document.getElementById('envelopeScene');
-                if(envelopeScene) envelopeScene.classList.add('open');
-                
-                setTimeout(() => {
-                    const envelopeContainer = document.getElementById('envelope-container');
-                    if(envelopeContainer) envelopeContainer.classList.add('hide-envelope');
-                    
-                    const mainContent = document.getElementById('main-content');
-                    if(mainContent) mainContent.style.display = 'block';
-                }, 1200);
-            }, 800);
-        });
+                const envelopeContainer = document.getElementById('envelope-container');
+                if(envelopeContainer) envelopeContainer.classList.add('hide-envelope');
+
+                const mainContent = document.getElementById('main-content');
+                if(mainContent) mainContent.style.display = 'block';
+            }, 700);
+        }
 
         // عد تنازلي حتى تاريخ 13/9/2026
         const targetDate = new Date("September 13, 2026 00:00:00").getTime();
@@ -377,7 +382,7 @@
             if(secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
         }
 
-        setInterval(updateCountdown, 1000);
+        setInterval(updateCommand = updateCountdown, 1000);
         updateCountdown();
     </script>
 </body>
