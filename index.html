@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* واجهة الظرف والورقة الاحترافية */
+        /* واجهة الظرف والورقة الاحترافية (الورقة جواه بالظبط وتطلع منه) */
         #envelope-container {
             position: fixed;
             top: 0;
@@ -44,6 +44,7 @@
             height: 220px;
         }
 
+        /* جيب الظرف من تحت */
         .envelope-pocket {
             position: absolute;
             bottom: 0;
@@ -52,16 +53,18 @@
             height: 140px;
             background-color: #e3d5ca;
             border-radius: 0 0 12px 12px;
-            z-index: 3;
+            z-index: 4;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            pointer-events: none;
         }
 
+        /* الورقة جوه الظرف مخفية في البداية وتطلع منه */
         .letter {
             position: absolute;
             bottom: 10px;
             left: 20px;
             width: 280px;
-            height: 160px;
+            height: 150px;
             background-color: #fdf0ed;
             color: #4a3b32;
             border-radius: 8px;
@@ -70,20 +73,21 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             z-index: 2;
             font-family: 'Amiri', serif;
-            transform: translateY(20px);
+            transform: translateY(45px); /* مخفية جوه الظرف تماماً */
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .letter h2 {
-            font-size: 22px;
+            font-size: 20px;
             color: #8c5844;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
+        /* غطاء الظرف المتحرك من فوق */
         .envelope-flap {
             position: absolute;
             top: 0;
@@ -95,18 +99,18 @@
             border-top: 110px solid #d5bdaf;
             transform-origin: top;
             transition: transform 0.8s ease;
-            z-index: 4;
+            z-index: 5;
         }
 
-        /* أنيميشن فتح الظرف تلقائياً وخروج الورقة بسلاسة */
+        /* أنيميشن الفتح الحقيقي: الغطاء يترفع وبعدها الورقة تطلع من جوه الظرف لفوق */
         .envelope-scene.open .envelope-flap {
             transform: rotateX(180deg);
             z-index: 1;
         }
 
         .envelope-scene.open .letter {
-            transform: translateY(-80px);
-            z-index: 5;
+            transform: translateY(-75px); /* بتطلع لفوق وتخرج من الظرف تماماً */
+            z-index: 3;
         }
 
         .hide-envelope {
@@ -228,7 +232,7 @@
             font-family: 'Amiri', serif;
         }
 
-        /* زر الواتساب وتعديلات الخانة الأخيرة */
+        /* زر الواتساب والتصميمات واللوجو */
         .whatsapp-container {
             margin: 30px 0;
             text-align: center;
@@ -265,9 +269,10 @@
             font-family: 'Amiri', serif;
             font-size: 16px;
             color: #6b4436;
-            margin-top: 10px;
+            margin-top: 12px;
             line-height: 1.6;
             padding: 0 10px;
+            font-weight: bold;
         }
 
         /* التوقيع الأخير */
@@ -287,7 +292,7 @@
         <div class="envelope-scene" id="envelopeScene">
             <div class="envelope-flap"></div>
             <div class="letter">
-                <h2 style="font-size: 20px;">💍 كتب كتابنا 💍</h2>
+                <h2>💍 كتب كتابنا 💍</h2>
                 <p style="font-size: 17px; font-weight: bold;">أحمد & نورهان ❤️</p>
             </div>
             <div class="envelope-pocket"></div>
@@ -362,7 +367,7 @@
     </div>
 
     <script>
-        // فتح الظرف تلقائياً أول ما الصفحة تفتح
+        // فتح الظرف تلقائياً وخروج الورقة من جوه الجيب بسلاسة
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const envelopeScene = document.getElementById('envelopeScene');
@@ -374,7 +379,7 @@
                     
                     const mainContent = document.getElementById('main-content');
                     if(mainContent) mainContent.style.display = 'block';
-                }, 1000);
+                }, 1200);
             }, 600);
         });
 
